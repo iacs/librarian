@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-#coding: utf-8
+# coding: utf-8
 #
-#  __     ______     ______     __  __     ______    
-# /\ \   /\  __ \   /\  ___\   /\ \/\ \   /\  ___\   
-# \ \ \  \ \  __ \  \ \ \____  \ \ \_\ \  \ \___  \  
-#  \ \_\  \ \_\ \_\  \ \_____\  \ \_____\  \/\_____\ 
-#   \/_/   \/_/\/_/   \/_____/   \/_____/   \/_____/ 
+#  __     ______     ______     __  __     ______
+# /\ \   /\  __ \   /\  ___\   /\ \/\ \   /\  ___\
+# \ \ \  \ \  __ \  \ \ \____  \ \ \_\ \  \ \___  \
+#  \ \_\  \ \_\ \_\  \ \_____\  \ \_____\  \/\_____\
+#   \/_/   \/_/\/_/   \/_____/   \/_____/   \/_____/
 #
-# Librarian 2.0
+# Librarian 2.0.0
 # SN: 140601
 #
 # Iago Mosquera
@@ -20,13 +20,13 @@
 # Configurado para cygwin
 #
 
-__author__ = 'Iago Mosquera'
-
 import os
 import optparse
 import subprocess
 from datetime import datetime, date, time
 #from subprocess import call
+
+__author__ = 'Iago Mosquera'
 
 syncfile = "sync.txt"
 exclfile = "excl.txt"
@@ -128,7 +128,8 @@ if os.listdir(baul):
     #result = subprocess.check_output(['ls', '-1', baul])
     result = subprocess.check_output(['find', baul, '-maxdepth', '1'])
     mover = result.split('\n')
-    if baul in mover: mover.remove(baul)
+    if baul in mover:
+        mover.remove(baul)
     #for f in mover: print(f)
     moverArchivos(mover, trastero)
     #subprocess.call(['mv', baul + '/*', trastero])
