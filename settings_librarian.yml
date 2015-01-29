@@ -1,0 +1,30 @@
+# Directories
+dir_logs:
+dir_origin:
+dir_destination:
+dir_dls:
+dir_baul:
+dir_trastero:
+dir_tmp:
+
+# Files
+file_sync:
+file_exclusion:
+
+# Whitelisted directories (won't be moved)
+white_dirs:
+  - video
+  - img
+  - audio
+  - archff
+  - binaries
+  - data
+  - clasificar
+  - baul
+  - torrent
+  - jdl
+
+# Clasifier (dirs, file extensions)
+
+# Parameters
+old_time: +15 # move files older than this time in days
