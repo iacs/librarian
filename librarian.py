@@ -21,7 +21,6 @@
 #
 
 import os
-import optparse
 import subprocess
 from datetime import datetime, date, time
 #from subprocess import call
@@ -38,6 +37,7 @@ baul = "/cygdrive/e/Downloads/baul"      # directorio donde guardar temporalment
 trastero = "/cygdrive/e/trastero"        # directorio de almacenamiento de archivos viejos
 origin = "/cygdrive/e/"
 destination = "/cygdrive/f/backup2"
+dir_packages = "/cygdrive/e/archived/Packages/"
 
 # Directorios protegidos que no deben moverse
 white_dirs = [
@@ -78,13 +78,14 @@ def moverArchivos(lista, destino):
             print "moviendo", line
 
 
-def comprimirBackup(nombre, destino, dir_packages="/cygdrive/e/archived/Packages/"):
-    subprocess.call([
-        'zip',
-        '-ur',
-        dir_packages + nombre,
-        destino
-    ])
+def comprimirBackup(nombre_arch, destino="/cygdrive/e/archived/Packages/", *entradas):
+    fuentes = ""
+    for arch in entradas:
+        fuentes = fuentes + " " + arch
+        
+    cmd = "zip " + "-FSr " + destino + nombre_arch + " " + fuentes
+    
+    os.system(cmd)
 
 
 def logline():
@@ -234,27 +235,13 @@ subprocess.call(['rm', '-rf', dir_tmp])
 
 print("Comprimiendo archivos extra...")
 
-
-# Preferencias Sublime Text 3
-# subprocess.call([
-#     'zip',
-#     '-ur',
-#     dir_packages + 'st3usrpkg',
-#     "/cygdrive/c/Users/Iago\ Mosquera/AppData/Roaming/Sublime\ Text\ 3/Packages/"
-#     ])
-
-comprimirBackup('st3usrpkg', "/cygdrive/c/Users/Iago\ Mosquera/AppData/Roaming/Sublime\ Text\ 3/Packages/")
+comprimirBackup('st3_pack-master', dir_packages, "/cygdrive/c/Users/Iago\ Mosquera/AppData/Roaming/Sublime\ Text\ 3/Packages/")
 
 # Self-backup
-dir_packages = "/cygdrive/e/archived/Packages/"
-subprocess.call([
-    'zip',
-    '-ur',
-    dir_packages + 'librarian',
-    "/home/Iago\ Mosquera/librarian.py",
-    "/home/Iago\ Mosquera/sync.txt",
-    "/home/Iago\ Mosquera/excl.txt",
-    ])
+comprimirBackup('librarian', dir_packages,
+                "/home/Iago\ Mosquera/librarian.py",
+                "/home/Iago\ Mosquera/sync.txt",
+                "/home/Iago\ Mosquera/excl.txt")
 
 #
 # Sincronizar copia de seguridad
