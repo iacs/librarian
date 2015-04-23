@@ -239,7 +239,8 @@ comprimirBackup('st3_pack-master', dir_packages, "/cygdrive/c/Users/Iago\ Mosque
 
 # Self-backup
 comprimirBackup('librarian', dir_packages,
-                "/home/Iago\ Mosquera/librarian.py",
+                "/cygdrive/e/data/src/scripts/librarian/librarian.py",
+                "/cygdrive/e/data/src/scripts/librarian/settings_librarian.yml",
                 "/home/Iago\ Mosquera/sync.txt",
                 "/home/Iago\ Mosquera/excl.txt")
 
@@ -247,19 +248,19 @@ comprimirBackup('librarian', dir_packages,
 # Sincronizar copia de seguridad
 #
 
-print("Sincronizando copia de seguridad...")
+# print("Sincronizando copia de seguridad...")
 
-subprocess.call([
-    'rsync',
-    '-avprh',
-    '--delete-after',
-    '--modify-window=3',
-    '--files-from=' + syncfile,
-    '--exclude-from=' + exclfile,
-    '--log-file=' + synclog,
-    origin,
-    destination
-    ])
+# subprocess.call([
+#     'rsync',
+#     '-avprh',
+#     '--delete-after',
+#     '--modify-window=3',
+#     '--files-from=' + syncfile,
+#     '--exclude-from=' + exclfile,
+#     '--log-file=' + synclog,
+#     origin,
+#     destination
+#     ])
 
 #
 # Escribir en el log
