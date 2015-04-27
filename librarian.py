@@ -185,10 +185,10 @@ moverArchivos(lista_archivos, t_video)
 lista_archivos = clasificarPorRegex(".*\.(jpg|jpeg|png|gif)")
 moverArchivos(lista_archivos, t_img)
 
-lista_archivos = clasificarPorRegex(".*\.(mp3|m4a)")
+lista_archivos = clasificarPorRegex(".*\.(mp3|m4a|flac|ogg)")
 moverArchivos(lista_archivos, t_audio)
 
-lista_archivos = clasificarPorRegex(".*\.(zip|rar|7z|gz|bz2)")
+lista_archivos = clasificarPorRegex(".*\.(zip|rar|7z|gz|bz2|iso)")
 moverArchivos(lista_archivos, t_archive)
 
 lista_archivos = clasificarPorRegex(".*\.(exe|msi|msu|deb|rpm)")
