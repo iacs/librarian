@@ -29,7 +29,7 @@ __author__ = 'Iago Mosquera'
 
 syncfile = "sync.txt"
 exclfile = "excl.txt"
-logfile = "/cygdrive/e/data/logs/backups.log"
+logfile = "/cygdrive/e/data/logs/librarian.log"
 synclog = "/cygdrive/e/data/logs/rsync.log"
 
 dir_descargas = "/cygdrive/e/Downloads"  # directorio de descargas
@@ -90,7 +90,7 @@ def comprimirBackup(nombre_arch, destino="/cygdrive/e/archived/Packages/", *entr
 
 def logline():
     with open(logfile, "a") as logfd:
-        line = datetime.now().strftime("[%Y-%m-%d] @ %I:%M:%S %p - Backup executed\n")
+        line = datetime.now().strftime("[%Y-%m-%d] @ %I:%M:%S %p - Librarian executed\n")
         logfd.write(line)
 
 #
