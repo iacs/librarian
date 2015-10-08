@@ -7,12 +7,12 @@
 #  \ \_\  \ \_\ \_\  \ \_____\  \ \_____\  \/\_____\
 #   \/_/   \/_/\/_/   \/_____/   \/_____/   \/_____/
 #
-# Librarian 2.0.0
-# SN: 140601
+# Librarian 3.0.0
+# SN: 151008
 #
 # Iago Mosquera
 # Script para automatizar tareas de mantenimiento
-# * Copias de seguridad
+# * Comprimir paquetes de archivos
 # * Clasificación de archivos
 # * Limpieza de archivos temporales
 #
@@ -22,6 +22,7 @@
 
 import os
 import subprocess
+import logging
 from datetime import datetime, date, time
 #from subprocess import call
 
@@ -30,6 +31,7 @@ __author__ = 'Iago Mosquera'
 syncfile = "sync.txt"
 exclfile = "excl.txt"
 logfile = "/cygdrive/e/data/logs/librarian.log"
+logpath = "/cygdrive/e/data/logs/"
 synclog = "/cygdrive/e/data/logs/rsync.log"
 
 dir_descargas = "/cygdrive/e/Downloads"  # directorio de descargas
@@ -97,6 +99,19 @@ def logline():
 # Setup
 #
 
+# Load preferences
+
+# Logging
+if not (os.path.exists(logpath)):
+    os.makedirs(logpath)
+log = logging.getLogger('librarian')
+formatter = logging.Formatter(fmt='{asctime} [{levelname}] - {message}', style='{')
+fileHandler = logging.handlers.RotatingFileHandler(os.path.join(logpath, "librarian.log"),
+    'a', 1048576, 10)
+fileHandler.setFormatter(formatter)
+log.setLevel(logging.INFO)
+log.addHandler(fileHandler)
+
 t_video = trastero + "/video"
 t_img = trastero + "/img"
 t_audio = trastero + "/audio"
@@ -110,13 +125,15 @@ dirs = [t_video, t_img, t_audio, t_archive, t_bin, t_data, t_mess]
 for dirname in dirs:
     if not os.path.exists(dirname):
         os.makedirs(dirname)
-        print "creando", dirname
+        #print "creando", dirname
+        log.info("creando directorio: {}", dirname)
 
 
 #
-# Copia de seguridad principal
+# Copia de seguridad
 #
 
+# Ejecutar comando de copia de seguridad
 #rsync -avrh --delete-after --files-from=$LISTASYNC --log-file=$LOGFILE $OGDIR/d $BKDIR
 
 #
