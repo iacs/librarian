@@ -3,8 +3,8 @@ dir_logs:
 dir_origin:
 dir_destination:
 dir_dls:
-dir_baul:
-dir_trastero:
+dir_vault:
+dir_boxroom:
 dir_tmp:
 
 # Files
@@ -24,7 +24,24 @@ white_dirs:
   - torrent
   - jdl
 
+# Boxroom directories (for classification)
+boxroom:
+  - name: video
+    filetypes: []
+  - name: img
+    filetypes: []
+  - name: audio
+    filetypes: []
+  - name: archff
+    filetypes: []
+  - name: binaries
+    filetypes: []
+  - name: data
+    filetypes: []
+  - name: clasificar
+    filetypes: []
+
 # Clasifier (dirs, file extensions)
 
 # Parameters
-old_time: +15 # move files older than this time in days
+days_old: 15 # move files older than this time in days
