@@ -1,11 +1,10 @@
 # Directories
 dir_logs:
-dir_origin:
-dir_destination:
 dir_dls:
 dir_vault:
 dir_boxroom:
 dir_tmp:
+dir_packages:
 
 # Files
 file_sync:
@@ -21,27 +20,30 @@ white_dirs:
   - data
   - clasificar
   - baul
-  - torrent
-  - jdl
 
 # Boxroom directories (for classification)
 boxroom:
   - name: video
-    filetypes: []
+    filetypes: [avi, mpg]
   - name: img
-    filetypes: []
+    filetypes: [jpg]
   - name: audio
-    filetypes: []
+    filetypes: [mp3, ogg]
   - name: archff
-    filetypes: []
+    filetypes: [zip, rar]
   - name: binaries
-    filetypes: []
+    filetypes: [exe]
   - name: data
-    filetypes: []
-  - name: clasificar
-    filetypes: []
+    filetypes: [pdf]
 
-# Clasifier (dirs, file extensions)
+box_misc: clasificar
 
 # Parameters
 days_old: 15 # move files older than this time in days
+
+# Archives (zipped files)
+
+archives:
+  - name:
+    paths:
+      - 
