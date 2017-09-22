@@ -28,7 +28,7 @@ import logging.handlers
 
 __author__ = 'Iago Mosquera'
 
-FILE_SETTINGS = "librarian_config.yml"
+FILE_SETTINGS = "settings_librarian.yml"
 FILE_LOG = "librarian.log"
 ENCODING = "utf-8"
 
@@ -58,19 +58,17 @@ def clasificarPorRegex(regex):
         '-iregex', regex
         ])
     
-    # print (result.split('\n'))
-
     return result.decode(ENCODING).split('\n')
 
 
-def comprimirBackup(nombre_arch, destino="/cygdrive/e/archived/Packages/", *entradas):
-    fuentes = ""
-    for arch in entradas:
-        fuentes = fuentes + " " + arch
+# def comprimirBackup(nombre_arch, destino="/cygdrive/e/archived/Packages/", *entradas):
+#     fuentes = ""
+#     for arch in entradas:
+#         fuentes = fuentes + " " + arch
         
-    cmd = "zip " + "-FSr " + destino + nombre_arch + " " + fuentes
+#     cmd = "zip " + "-FSr " + destino + nombre_arch + " " + fuentes
     
-    os.system(cmd)
+#     os.system(cmd)
 
 
 def getBoxPath(boxname):
@@ -139,9 +137,6 @@ def moveVaultToBoxroom():
         mover = result.decode(ENCODING).split('\n')
         if "" in mover:
             mover.remove("")
-        # for line in mover:
-        #     subprocess.call(['mv', line, vault])
-        #     print "moviendo", line
         moverArchivos(mover, vault)
             
     # Mover directorios
@@ -160,7 +155,6 @@ def moveVaultToBoxroom():
         if dir_descargas in mover:
             mover.remove(dir_descargas)
         for d in white_dirs:
-            # if dir_descargas + "/" + d in mover:
             if os.path.join(dir_descargas, d) in mover:
                 mover.remove(os.path.join(dir_descargas, d))
         moverArchivos(mover, vault)
@@ -172,7 +166,6 @@ def sortBoxroom():
     white_dirs = settings['white_dirs']
 
     for set in boxroom:
-        # if len(set['filetypes']) > 0:
         box = getBoxPath(set['name'])
         regex = ".*\.("
         for ext in set['filetypes'][:-1]:
@@ -212,12 +205,8 @@ def sortBoxroom():
         if trastero in mover:
             mover.remove(trastero)
         for d in white_dirs:
-            # if dir_descargas + "/" + d in mover:
             if os.path.join(trastero, d) in mover:
                 mover.remove(os.path.join(trastero, d))
-        # for line in mover:
-        #     subprocess.call(['mv', line, t_mess])
-        #     print "moviendo", line
         moverArchivos(mover, box)
 
 
@@ -226,12 +215,12 @@ def deleteTmp():
     subprocess.call(['rm', '-rf', dir_tmp])
 
 
-def makeArchives():
-    dir_packages = settings['dir_packages']
+# def makeArchives():
+#     dir_packages = settings['dir_packages']
 
-    for set in settings['archives']:
-        # using * to unpack the list into args
-        comprimirBackup(set['name'], dir_packages, *set['paths'])
+#     for set in settings['archives']:
+#         # using * to unpack the list into args
+#         comprimirBackup(set['name'], dir_packages, *set['paths'])
 
 
 def main():
@@ -246,7 +235,7 @@ def main():
     # Backup would go here <-
     sortBoxroom()
     deleteTmp()
-    makeArchives()
+    # makeArchives()
 
     log.info("Librarian - ejecución finalizada")
 
