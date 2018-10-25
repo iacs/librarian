@@ -57,7 +57,7 @@ def clasificarPorRegex(regex):
         '-regextype', 'posix-awk',
         '-iregex', regex
         ])
-    
+
     return result.decode(ENCODING).split('\n')
 
 
@@ -65,9 +65,9 @@ def clasificarPorRegex(regex):
 #     fuentes = ""
 #     for arch in entradas:
 #         fuentes = fuentes + " " + arch
-        
+
 #     cmd = "zip " + "-FSr " + destino + nombre_arch + " " + fuentes
-    
+
 #     os.system(cmd)
 
 
@@ -138,7 +138,7 @@ def moveVaultToBoxroom():
         if "" in mover:
             mover.remove("")
         moverArchivos(mover, vault)
-            
+
     # Mover directorios
     result = subprocess.check_output([
                     'find',
@@ -237,7 +237,7 @@ def main():
     deleteTmp()
     # makeArchives()
 
-    log.info("Librarian - ejecución finalizada")
+    log.info("Librarian - ejecucion finalizada")
 
 
 if __name__ == '__main__':
