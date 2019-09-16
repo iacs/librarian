@@ -45,6 +45,7 @@ def moverArchivos(lista, destino):
         for line in lista:
             subprocess.call(['mv', '-n', line, destino])
             log.info("Moviendo archivo: {0}".format(line))
+        print("movidos {} archivos a {}".format(len(lista), destino))
 
 
 def clasificarPorRegex(regex):
@@ -213,6 +214,7 @@ def sortBoxroom():
 def deleteTmp():
     dir_tmp = settings['dir_tmp']
     subprocess.call(['rm', '-rf', dir_tmp])
+    print("Directorio temporal eliminado")
 
 
 # def makeArchives():
@@ -238,6 +240,7 @@ def main():
     # makeArchives()
 
     log.info("Librarian - ejecucion finalizada")
+    print("Finalizado")
 
 
 if __name__ == '__main__':
