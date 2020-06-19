@@ -7,7 +7,7 @@
 #  \ \_\  \ \_\ \_\  \ \_____\  \ \_____\  \/\_____\
 #   \/_/   \/_/\/_/   \/_____/   \/_____/   \/_____/
 #
-# Librarian 3.0.0
+# Librarian 3.1.0
 # SN: 151008
 #
 # Iago Mosquera
@@ -22,13 +22,13 @@
 
 import os
 import subprocess
-import yaml
+import json
 import logging
 import logging.handlers
 
 __author__ = 'Iago Mosquera'
 
-FILE_SETTINGS = "settings_librarian.yml"
+FILE_SETTINGS = "settings.json"
 FILE_LOG = "librarian.log"
 ENCODING = "utf-8"
 
@@ -36,8 +36,29 @@ settings = {}
 log = ""
 
 
+def main():
+    global settings
+    global log
+
+    settings = loadData(FILE_SETTINGS)
+    log = setupLogger(FILE_LOG)
+
+    createBoxroomDirs()
+    moveVaultToBoxroom()
+    # Backup would go here <-
+    sortBoxroom()
+    deleteTmp()
+    # makeArchives()
+
+    log.info("Librarian - ejecucion finalizada")
+    print("Finalizado")
+
+
 def loadData(path):
-    return yaml.safe_load(open(path, 'r', encoding='utf-8'))
+    data = {}
+    with open(path, 'r', encoding='utf-8') as datafile:
+        data = json.load(datafile)
+    return data
 
 
 def moverArchivos(lista, destino):
@@ -57,7 +78,7 @@ def clasificarPorRegex(regex):
         '-type', 'f',
         '-regextype', 'posix-awk',
         '-iregex', regex
-        ])
+    ])
 
     return result.decode(ENCODING).split('\n')
 
@@ -85,7 +106,8 @@ def setupLogger(logFileName):
         os.makedirs(dir_logs)
 
     log = logging.getLogger('librarian')
-    formatter = logging.Formatter(fmt='{asctime} [{levelname}] - {message}', style='{')
+    formatter = logging.Formatter(
+        fmt='{asctime} [{levelname}] - {message}', style='{')
     fileHandler = logging.handlers.RotatingFileHandler(os.path.join(dir_logs, logFileName),
                                                        'a', 1048576, 10)
 
@@ -127,12 +149,12 @@ def moveVaultToBoxroom():
 
     # Mover descargas antiguas
     result = subprocess.check_output([
-                    'find',
-                    dir_descargas,
-                    '-maxdepth', '1',
-                    '-type', 'f',
-                    '-mtime', dias_antig,
-                    ])
+        'find',
+        dir_descargas,
+        '-maxdepth', '1',
+        '-type', 'f',
+        '-mtime', dias_antig,
+    ])
 
     if result:
         mover = result.decode(ENCODING).split('\n')
@@ -142,12 +164,12 @@ def moveVaultToBoxroom():
 
     # Mover directorios
     result = subprocess.check_output([
-                    'find',
-                    dir_descargas,
-                    '-maxdepth', '1',
-                    '-type', 'd',
-                    '-mtime', dias_antig,
-                    ])
+        'find',
+        dir_descargas,
+        '-maxdepth', '1',
+        '-type', 'd',
+        '-mtime', dias_antig,
+    ])
 
     if result:
         mover = result.decode(ENCODING).split('\n')
@@ -185,7 +207,7 @@ def sortBoxroom():
         trastero,
         '-maxdepth', '1',
         '-type', 'f',
-        ])
+    ])
     if result:
         mover = result.decode(ENCODING).split('\n')
         if "" in mover:
@@ -197,7 +219,7 @@ def sortBoxroom():
         trastero,
         '-maxdepth', '1',
         '-type', 'd',
-        ])
+    ])
 
     if result:
         mover = result.decode(ENCODING).split('\n')
@@ -223,24 +245,6 @@ def deleteTmp():
 #     for set in settings['archives']:
 #         # using * to unpack the list into args
 #         comprimirBackup(set['name'], dir_packages, *set['paths'])
-
-
-def main():
-    global settings
-    global log
-
-    settings = loadData(FILE_SETTINGS)
-    log = setupLogger(FILE_LOG)
-
-    createBoxroomDirs()
-    moveVaultToBoxroom()
-    # Backup would go here <-
-    sortBoxroom()
-    deleteTmp()
-    # makeArchives()
-
-    log.info("Librarian - ejecucion finalizada")
-    print("Finalizado")
 
 
 if __name__ == '__main__':

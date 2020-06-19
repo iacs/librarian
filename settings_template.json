@@ -1,0 +1,58 @@
+{
+    "dir_logs": "",
+    "dir_dls": "",
+    "dir_vault": "",
+    "dir_boxroom": "",
+    "dir_tmp": "",
+    "file_sync": null,
+    "file_exclusion": null,
+    "white_dirs": [
+        ""
+    ],
+    "boxroom": [
+        {
+            "name": "video",
+            "filetypes": [
+                "avi",
+                "mpg",
+                "mp4",
+                "mov"
+            ]
+        },
+        {
+            "name": "img",
+            "filetypes": [
+                "jpg"
+            ]
+        },
+        {
+            "name": "audio",
+            "filetypes": [
+                "mp3",
+                "ogg"
+            ]
+        },
+        {
+            "name": "archff",
+            "filetypes": [
+                "zip",
+                "rar",
+                "7z"
+            ]
+        },
+        {
+            "name": "binaries",
+            "filetypes": [
+                "exe"
+            ]
+        },
+        {
+            "name": "data",
+            "filetypes": [
+                "pdf"
+            ]
+        }
+    ],
+    "box_misc": "clasificar",
+    "days_old": 15
+}
